@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Aether Audio Player</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <aside class="sidebar">
+    <div class="drag-region"></div>
+    <div class="brand">
+      <span class="logo-icon">✦</span> Aether
+    </div>
+
+    <div class="menu-group">
+      <h3>Library</h3>
+      <button class="nav-item active" id="nav-albums">
+        <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 2A10 10 0 0 0 2 12a10 10 0 0 0 10 10a10 10 0 0 0 10-10A10 10 0 0 0 12 2m0 18a8 8 0 0 1-8-8a8 8 0 0 1 8-8a8 8 0 0 1 8 8a8 8 0 0 1-8 8m0-11a3 3 0 1 0 0 6a3 3 0 0 0 0-6m0 4a1 1 0 1 1 0-2a1 1 0 0 1 0 2"/></svg>
+        Albums
+      </button>
+      <button class="nav-item" id="nav-songs">
+        <svg class="icon" viewBox="0 0 24 24"><path fill="currentColor" d="M12 3v10.55c-.59-.34-1.27-.55-2-.55c-2.21 0-4 1.79-4 4s1.79 4 4 4s4-1.79 4-4V7h4V3h-6z"/></svg>
+        Songs
+      </button>
+    </div>
+
+    <div class="menu-group actions">
+      <h3>Manage</h3>
+      <button class="nav-btn primary" id="scan-btn">📁 Add Folder</button>
+      <button class="nav-btn secondary" id="clear-btn">Clear Library</button>
+    </div>
+  </aside>
+
+  <main class="content">
+    <header class="header">
+      <div class="header-left">
+        <button id="back-btn" class="back-btn hidden">‹ Back</button>
+        <h1 id="page-title">Albums</h1>
+      </div>
+      <div class="search-box">
+        <input type="text" id="search-input" placeholder="Search library...">
+      </div>
+    </header>
+
+    <div class="view-container">
+      <div class="album-grid" id="album-grid"></div>
+
+
+      <div class="album-detail-container hidden" id="album-detail">
+        <div class="album-header-info">
+          <div class="detail-cover-wrapper">
+            <img id="detail-cover" src="" alt="Cover">
+          </div>
+          <div class="detail-meta">
+            <span class="meta-type">ALBUM</span>
+            <h2 id="detail-title">Album Title</h2>
+            <div id="detail-artist" class="meta-artist">Artist</div>
+          </div>
+        </div>
+
+        <table class="songs-table">
+          <thead>
+            <tr>
+              <th style="width: 40px">#</th>
+              <th>TITLE</th>
+              <th style="width: 80px; text-align: right">TIME</th>
+            </tr>
+          </thead>
+          <tbody id="album-songs-list"></tbody>
+        </table>
+      </div>
+
+
+      <div class="songs-table-container hidden" id="songs-container">
+        <table class="songs-table">
+          <thead>
+            <tr>
+              <th style="width: 40px">#</th>
+              <th>TITLE</th>
+              <th>ALBUM</th>
+              <th style="width: 80px; text-align: right">TIME</th>
+            </tr>
+          </thead>
+          <tbody id="songs-list"></tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <footer class="player-bar">
+    <div class="now-playing">
+      <div class="cover-box">
+        <img id="player-cover" src="data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7" alt="">
+      </div>
+      <div class="track-info">
+        <div id="player-title" class="title">Not Playing</div>
+        <div id="player-artist" class="artist">—</div>
+      </div>
+    </div>
+
+    <div class="player-center">
+      <div class="controls">
+        <button class="btn-ctrl" id="shuffle-btn" title="Shuffle">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M10.59 9.17L5.41 4L4 5.41l5.17 5.17l1.42-1.41M14.5 4l2.04 2.04L4 18.59L5.41 20L17.96 7.45L20 9.5V4h-5.5m.83 8.58l-1.41 1.41l3.13 3.13L15 19.17V20h5v-5l-2.05 2.05l-3.12-3.12Z"/></svg>
+        </button>
+        <button class="btn-ctrl" id="prev-btn" title="Previous">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+        </button>
+        <button class="btn-ctrl play-main" id="play-btn" title="Play/Pause">
+          <svg class="play-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M8 5v14l11-7z"/></svg>
+        </button>
+        <button class="btn-ctrl" id="next-btn" title="Next">
+          <svg viewBox="0 0 24 24"><path fill="currentColor" d="m6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+        </button>
+      </div>
+
+      <div class="progress-bar-container">
+        <span id="current-time">0:00</span>
+        <input type="range" id="seek-bar" value="0" min="0" max="100" step="0.1">
+        <span id="total-time">0:00</span>
+      </div>
+    </div>
+
+    <div class="player-right">
+      <svg class="vol-icon" viewBox="0 0 24 24"><path fill="currentColor" d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+      <input type="range" id="volume-bar" value="80" min="0" max="100">
+    </div>
+
+    <audio id="audio-player"></audio>
+  </footer>
+
+  <script src="app.js"></script>
+</body>
+</html>
