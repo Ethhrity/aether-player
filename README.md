@@ -2,6 +2,10 @@
 
 A minimalist, high-performance desktop audio player built with **Electron**, **HTML5/CSS3**, and **sql.js**. Inspired by Apple Music & Spotify UI.
 
+![Album View](screenshot1.png)
+
+![Songs List View](screenshot2.png)
+
 ## 🌟 Features
 
 - 🎨 **Minimalist Dark UI** inspired by Apple Music & Spotify.
